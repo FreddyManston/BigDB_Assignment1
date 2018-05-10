@@ -1,0 +1,16 @@
+{
+	rid: 1,
+	from_pid: 2,
+	to_pid: 1,
+	before_meet: 3,
+	after_meet: 4,
+	comments: "He grows on you. Would've been a 5, but he doesn't smoke though."
+},
+{
+	rid: 2,
+	from_pid: 1,
+	to_pid: 2,
+	before_meet: 2,
+	after_meet: 1,
+	comments: "She smokes too much."
+}

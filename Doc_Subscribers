@@ -1,0 +1,26 @@
+{
+	_id: 1,
+	name: "Anthony Morese Baker",
+	age: 31,
+	sex: "Male",
+	bio: "I'm a fun guy. Love to love, hate to hate. Hit me up. Not intereseted in one night stands.",
+	the_ratings: [
+		{
+			"$ref": "ratings",
+			"$id": 1,
+		}
+	]
+},
+{
+	_id: 2,
+	name: "Claire Charlotsville Bennet",
+	age: 28,
+	sex: "Undecided",
+	bio: "Hippy. 420. UCT. Endometheoligist. Save the planet. Save the whales.",
+	the_ratings: [
+		{
+			"$ref": "ratings",
+			"$id": 2,
+		}
+	]
+}
