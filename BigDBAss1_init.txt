@@ -1,0 +1,60 @@
+// These are the individual commands to be consecutively run in the mongo shell, in order to initialise the database with the required collections and a few documents.
+
+
+// Creating the database:
+> use BigDBAss1
+
+// Checking that you're using the correct database (the output should be 'BigDBAss1'):
+> db
+
+// Creating the subscribers collection and adding 2 documents into it:
+> db.createCollection("subscribers")
+> db.subscribers.insert({
+        _id: 1,
+        name: "Anthony Morese Baker",
+        age: 31,
+        sex: "Male",
+        pref_sex: "Female",
+        bio: "I'm a fun guy. Love to love, hate to hate. Hit me up. Not intereseted in one night stands.",
+        the_ratings: [
+                {
+                        "$ref": "ratings",
+                        "$id": 1,
+                }
+        ]
+})
+> db.subscribers.insert({
+        _id: 2,
+        name: "Claire Charlotsville Bennet",
+        age: 28,
+        sex: "Female",
+        pref_sex: "Male",
+        bio: "Hippy. 420. UCT. Endometheoligist. Save the planet. Save the whales.",
+        the_ratings: [
+                {
+                        "$ref": "ratings",
+                        "$id": 2,
+                }
+        ]
+})
+
+// Creating the ratings collection, by adding 2 documents into it:
+> db.ratings.insert({
+        rid: 1,
+        from_pid: 2,
+        to_pid: 1,
+        before_meet: 3,
+        after_meet: 4,
+        comments: "He grows on you. Would've been a 5, but he doesn't smoke though."
+})
+> db.ratings.insert({
+        rid: 2,
+        from_pid: 1,
+        to_pid: 2,
+        before_meet: 2,
+        after_meet: 1,
+        comments: "She smokes too much."
+})
+
+// Showing that the 2 collections have been created (should output the names of the 2 collections):
+> show collections

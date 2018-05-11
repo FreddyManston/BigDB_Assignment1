@@ -3,6 +3,7 @@
 	name: "Anthony Morese Baker",
 	age: 31,
 	sex: "Male",
+	pref_sex: "Female",
 	bio: "I'm a fun guy. Love to love, hate to hate. Hit me up. Not intereseted in one night stands.",
 	the_ratings: [
 		{
@@ -10,12 +11,14 @@
 			"$id": 1,
 		}
 	]
-},
+}
+
 {
 	_id: 2,
 	name: "Claire Charlotsville Bennet",
 	age: 28,
-	sex: "Undecided",
+	sex: "Female",
+	pref_sex: "Male",
 	bio: "Hippy. 420. UCT. Endometheoligist. Save the planet. Save the whales.",
 	the_ratings: [
 		{
@@ -23,4 +26,24 @@
 			"$id": 2,
 		}
 	]
+}
+
+{
+	_id: 3,
+	name: "Denika Montoya Gutenburgern",
+	age: 19,
+	sex: "Female",
+	pref_sex: "Both",
+	bio: "No love lost means never love found. Hit me up.",
+	the_ratings: []
+}
+
+{
+	_id: 4,
+	name: "Kevin Gunther Hartenburg",
+	age: 21,
+	sex: "Male",
+	pref_sex: "Female",
+	bio: "I really like curtains and interior decorating.",
+	the_ratings: []
 }

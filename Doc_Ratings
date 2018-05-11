@@ -5,7 +5,8 @@
 	before_meet: 3,
 	after_meet: 4,
 	comments: "He grows on you. Would've been a 5, but he doesn't smoke though."
-},
+}
+
 {
 	rid: 2,
 	from_pid: 1,
