@@ -1,13 +1,31 @@
-// These are the individual commands to be consecutively run in the mongo shell, in order to initialise the database with the required collections and a few documents.
+// These Are The Individual Commands To Be Consecutively Run In The Mongo Shell, In Order To Create, Query From and Manipulate The Database.
 
+// A Few Of The MongoDB Operations That Have Been Made Use Of, In Order To Showcase Our Understanding Of MongoDB, Are Listed Below:
+// 1.  insert()
+// 2.  insertMany()
+// 3.  updateOne()
+// 4.  updateMany()
+// 5.  find().pretty()
+// 6.  'and', 'or', 'gt' and 'lte' conditionals
+// 7.  limit()
+// 8.  $avg(aggregation)
+// 9.  drop()
+// 10. dropDatabase()
 
-// Creating the database:
+// The Individual Commands Follow:
+
+// CREATING THE DATABASE:
+
 > use BigDBAss1
 
-// Checking that you're using the correct database (the output should be 'BigDBAss1'):
+
+// CHECKING THAT YOU'RE USING THE CORRECT DATABASE (THE OUTPUT SHOULD BE 'BIGDBASS1'):
+
 > db
 
-// Creating the subscribers collection and adding 2 documents into it:
+
+// CREATING THE SUBSCRIBERS COLLECTION AND ADDING 2 DOCUMENTS INTO IT:
+
 > db.createCollection("subscribers")
 > db.subscribers.insert({
         _id: 1,
@@ -19,7 +37,11 @@
         the_ratings: [
                 {
                         "$ref": "ratings",
-                        "$id": 1,
+                        "$id": 1
+                },
+                {
+                        "$ref": "ratings",
+                        "$id": 3
                 }
         ]
 })
@@ -33,28 +55,197 @@
         the_ratings: [
                 {
                         "$ref": "ratings",
-                        "$id": 2,
+                        "$id": 2
                 }
         ]
 })
 
-// Creating the ratings collection, by adding 2 documents into it:
+
+// CREATING THE RATINGS COLLECTION, BY ADDING 2 DOCUMENTS INTO IT:
+
 > db.ratings.insert({
-        rid: 1,
-        from_pid: 2,
-        to_pid: 1,
+        _id: 1,
+        from_sub_id: 2,
+        to_sub_id: 1,
         before_meet: 3,
         after_meet: 4,
         comments: "He grows on you. Would've been a 5, but he doesn't smoke though."
 })
 > db.ratings.insert({
-        rid: 2,
-        from_pid: 1,
-        to_pid: 2,
+        _id: 2,
+        from_sub_id: 1,
+        to_sub_id: 2,
         before_meet: 2,
         after_meet: 1,
         comments: "She smokes too much."
 })
 
-// Showing that the 2 collections have been created (should output the names of the 2 collections):
+
+// SHOWING THAT THE 2 COLLECTIONS HAVE BEEN CREATED (SHOULD OUTPUT THE NAMES OF THE 2 COLLECTIONS):
+
 > show collections
+
+
+// INSERTING MULTIPLE DOCUMENTS AT A TIME INTO THE TWO CREATED COLLECTIONS:
+
+> db.subscribers.insertMany([
+{
+        _id: 3,
+        name: "Denika Montoya Gutenburgern",
+        age: 19,
+        sex: "Female",
+        pref_sex: "Both",
+        bio: "No love lost means never love found. Hit me up.",
+        the_ratings: [
+                {
+                        "$ref": "ratings",
+                        "$id": 5
+                }
+        ]
+},
+{
+        _id: 4,
+        name: "Kevin Gunther Hartenburg",
+        age: 21,
+        sex: "Male",
+        pref_sex: "Female",
+        bio: "I really like curtains and interior decorating.",
+        the_ratings: [
+                {
+                        "$ref": "ratings",
+                        "$id": 4
+                },
+                {
+                        "$ref": "ratings",
+                        "$id": 7
+                }
+        ]
+},
+{
+        _id: 5,
+        name: "Elisa Snow Queen",
+        age: 25,
+        sex: "Female",
+        pref_sex: "Female",
+        bio: "Do to others what you'd want them to do to you.",
+        the_ratings: []
+},
+{
+        _id: 6,
+        name: "Grazelda Mayor Anneway",
+        age: 28,
+        sex: "Female",
+        pref_sex: "Both",
+        bio: "Into fashion and interior decorating. Zen-way for life. Kind of into mind control..",
+        the_ratings: [
+                {
+                        "$ref": "ratings",
+                        "$id": 6
+                },
+                {
+                        "$ref": "ratings",
+                        "$id": 8
+                }
+        ]
+}])
+
+> db.ratings.insertMany([
+{
+        _id: 3,
+        from_sub_id: 3,
+        to_sub_id: 1,
+        before_meet: 2,
+        after_meet: 4,
+        comments: "He's cool and stuff."
+},
+{
+        _id: 4,
+        from_sub_id: 3,
+        to_sub_id: 4,
+        before_meet: 1,
+        after_meet: 3,
+        comments: "He has really nice curtains."
+},
+{
+        _id: 5,
+        from_sub_id: 4,
+        to_sub_id: 3,
+        before_meet: 1,
+        after_meet: 3,
+        comments: "She's kinda cool."
+},
+{
+        _id: 6,
+        from_sub_id: 4,
+        to_sub_id: 6,
+        before_meet: 3,
+        after_meet: 4,
+        comments: "She liked my curtains."
+},
+{
+        _id: 7,
+        from_sub_id: 6,
+        to_sub_id: 4,
+        before_meet: 4,
+        after_meet: 4,
+        comments: "I like his curtains."
+},
+{
+        _id: 8,
+        from_sub_id: 5,
+        to_sub_id: 6,
+        before_meet: 4,
+        after_meet: 4,
+        comments: "She's a lovely person. I think."
+}])
+
+
+// PRINTING ALL THE DOCUMENTS, IN THE TWO COLLECTIONS, IN JSON FORMAT:
+
+> db.subscribers.find().pretty()
+> db.ratings.find().pretty()
+
+
+// GETTING THE TOTAL SUBSCRIBERS, AS WELL AS HOW MANY ARE MALE AND HOW MANY ARE FEMALE:
+
+> db.subscribers.find().count()
+> db.subscribers.find({"sex": "Male"}).count()
+> db.subscribers.find({"sex": "Female"}).count()
+
+
+// FINDING ALL SUBSCRIBERS ABOVE AGE 25, AS WELL AS HOW MANY ARE MALE AND HOW MANY ARE FEMALE:
+
+> db.subscribers.find({"age": {$gt: 25}}).pretty()
+> db.subscribers.find({$and: [{"age": {$gt: 25}}, {"sex": "Male"}]}).count()
+> db.subscribers.find({$and: [{"age": {$gt: 25}}, {"sex": "Female"}]}).count()
+
+
+// FINDING ALL SUBSCRIBERS BELOW AND EQUAL TO AGE 25 OR THOSE WHO PREFER FEMALE PARTNERS, SORTING BY ASCENDING NAME AND LIMITING TO FIRST TWO DOCUMENTS:
+
+> db.subscribers.find({$or: [{"age": {$lte: 25}}, {"pref_sex": "Female"}]}).pretty().limit(2).sort({"name": 1})
+
+
+// UPDATING A SUBSCRIBERS PROFILE:
+
+> db.subscribers.updateOne({$and: [{"_id": 6}, {"name": "Grazelda Mayor Anneway"}]}, {$set: {"age": 29}})
+
+
+// UPDATING MANY RATINGS AT THE SAME TIME:
+
+> db.ratings.updateMany({"from_sub_id": 3}, {$set: {"before_meet": 1, "after_meet": 1, "comments": "I feel like people are more than the ratings we give them."}})
+
+
+// FINDING THE AVERAGE BEFORE_MEET RATING OF A SPECIFIC SUBSCRIBER, GIVEN THEIR ID:
+
+> db.ratings.aggregate([ {$match:{"to_sub_id": 1}}, {$group:{_id: "$to_sub_id", total:{$avg:"$before_meet"}}} ])
+
+
+// DROPPING THE SUBSCRIBER AND RATING COLLECTIONS:
+
+> db.subscribers.drop()
+> db.ratings.drop()
+
+
+// DROPPING THE DATABASE:
+
+> db.dropDatabase()

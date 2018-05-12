@@ -8,10 +8,14 @@
 	the_ratings: [
 		{
 			"$ref": "ratings",
-			"$id": 1,
+			"$id": 1
+		},
+		{
+			"$ref": "ratings",
+			"$id": 3
 		}
 	]
-}
+},
 
 {
 	_id: 2,
@@ -23,10 +27,10 @@
 	the_ratings: [
 		{
 			"$ref": "ratings",
-			"$id": 2,
+			"$id": 2
 		}
 	]
-}
+},
 
 {
 	_id: 3,
@@ -35,8 +39,13 @@
 	sex: "Female",
 	pref_sex: "Both",
 	bio: "No love lost means never love found. Hit me up.",
-	the_ratings: []
-}
+	the_ratings: [
+		{
+			"$ref": "ratings",
+			"$id": 5
+		}
+	]
+},
 
 {
 	_id: 4,
@@ -45,5 +54,43 @@
 	sex: "Male",
 	pref_sex: "Female",
 	bio: "I really like curtains and interior decorating.",
+	the_ratings: [
+		{
+			"$ref": "ratings",
+			"$id": 4
+		},
+		{
+			"$ref": "ratings",
+			"$id": 7
+		}
+	]
+},
+
+{
+	_id: 5,
+	name: "Elisa Snow Queen",
+	age: 25,
+	sex: "Female",
+	pref_sex: "Female",
+	bio: "Do to others what you'd want them to do to you.",
 	the_ratings: []
+},
+
+{
+	_id: 6,
+	name: "Grazelda Mayor Anneway",
+	age: 28,
+	sex: "Female",
+	pref_sex: "Both",
+	bio: "Into fashion and interior decorating. Zen-way for life. Kind of into mind control....",
+	the_ratings: [
+		{
+			"$ref": "ratings",
+			"$id": 6
+		},
+		{
+			"$ref": "ratings",
+			"$id": 8
+		}
+	]
 }

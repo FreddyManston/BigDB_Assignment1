@@ -21,23 +21,59 @@ var conn = new Mongo();
 	<3
 */
 
-// insert
+function insert() {}
 
-// updateRating
+function updateRating() {}
 
-// remove 
+function remove() {}
 
-// find pretty
+function findPretty() {}
 
-// aggregateRatingsForDifferentSexs
+function find5StarAfterRating() {}
 
-// sortByRating
+/**
+	totalSubscribers shows the total number of subsccribers on the database and prints how many are men and how many are women
+*/
+function totalSubscribers() {
+	document.write("In progress.");
+}
 
-// getAvgBeforeRating
+/** 
+	averageRatings outputs the average given ratings for men and women respectively
+*/
+function averageRatings() {
+	document.write("In progress.");
+}
 
-// getAvgAfterRating
+/** 
+	getAvgBeforeRating takes in a subscribers id and outputs their name, age, sex and the average of the after_meeting ratings
+	that they've been given.
+*/
+function getAvgBeforeRating(id) {
+	document.write("In progress.");
+}
 
-// find5StarAfterRating
+/** 
+	getAvgAfterRating takes in a subscribers id and outputs their name, age, sex and the average of the after_meeting ratings
+	that they've been given.
+*/
+function getAvgAfterRating(id) {
+	document.write("In progress.");
+}
+
+
+/** 
+	sortByRating sorts subscribers by their average overall rating (can extend to showing male or female subscribers)
+	Note: Average overall rating is calculated by taking avg of before and after or by just taking before if there's no after rating
+*/
+function sortByRating() {
+//	avg_rating = before_rating
+//
+//	if(there is an after rating) then
+//		avg_rating = (avg_rating + after_rating)/2
+
+	document.write("In progress.");
+}
 
 /** 
 	findMostLikelyMatch takes in a subscribers name, their age, their sex, preferred sex and a keyword from their bio 
@@ -45,5 +81,5 @@ var conn = new Mongo();
 	Note: This is a rudimentary example, meant only for the purpose of this BigDb assignment.
 */
 function findMostLikelyMatch(name, age, bio_keyword, sex, pref_sex) {
-
+	document.write("In progress.");
 }
