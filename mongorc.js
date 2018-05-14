@@ -35,9 +35,10 @@ function getNextSequenceValue(sequenceName){
 
 // insertRating function where after rating is optional 
 // also updates the subscribers collection 
-function insertRating (dbname, from_id, to_id, before_rating, comment, after_rating) {
+function insertRating (dbname, from_id, to_id, before_rating, after_rating, comment) {
 	var db = conn.getDB(dbname);
-	if (typeof after_rating !== "undefined") {
+	// you only really have to set the after rating later (after you meet the person)
+	if (typeof after_rating === "undefined") {
 		after_rating = "-";
 	} 
 	db['ratings'].insert({'_id': getNextSequenceValue("rating"),
@@ -51,8 +52,14 @@ function insertRating (dbname, from_id, to_id, before_rating, comment, after_rat
 		{$push: { the_ratings: {'$ref' : 'ratings', '$id': from_id}}});
 }
 
+function updateRating(dbname, from_id, to_id, before_rating, after_rating, comment) {
 
-function remove() {}
+}
+
+
+function removeUser(dbname, id) {
+
+}
 
 function findPretty() {}
 
@@ -62,14 +69,17 @@ function find5StarAfterRating() {}
 	totalSubscribers shows the total number of subsccribers on the database and prints how many are men and how many are women
 */
 function totalSubscribers() {
-	document.write("In progress.");
+	var str = "Total subscribers: " + db.subscribers.find().count(); 
+	str += "\nTotal males: " + db.subscribers.find({"sex": "Male"}).count();
+	str += "\nTotal females: " + db.subscribers.find({"sex": "Female"}).count()
+	return str
 }
 
 /** 
 	averageRatings outputs the average given ratings for men and women respectively
 */
 function averageRatings() {
-	document.write("In progress.");
+	
 }
 
 /** 
