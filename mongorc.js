@@ -21,7 +21,40 @@ var conn = new Mongo();
 	<3
 */
 
-function insert() {}
+
+function getNextSequenceValue(sequenceName){
+
+   var sequenceDocument = db.counters.findAndModify({
+      query:{_id: sequenceName },
+      update: {$inc:{sequence_value:1}},
+      new:true
+   });
+	
+   return sequenceDocument.sequence_value;
+}
+
+// insertRating function where after rating is optional 
+// also updates the subscribers collection 
+function insertRating (dbname, from_id, to_id, before_rating, comment, after_rating) {
+	var db = conn.getDB(dbname);
+	if (typeof after_rating !=== "undefined") {
+		after_rating = "-"
+	} 
+	db['ratings'].insert({'_id': getNextSequenceValue("rating")
+		'from_sub_id': from_id,
+        'to_sub_id': to_id,
+        'before_meet': before_rating,
+        'after_meet': after_rating,
+        'comments': comment});
+
+	db['subscribers'].updateOne(
+		{ _id: to_id },
+		$push: {
+			the_ratings: {'$ref' : 'ratings', '$id': from_id}
+		});
+}
+
+
 
 function updateRating() {}
 

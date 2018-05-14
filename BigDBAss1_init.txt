@@ -24,6 +24,13 @@
 > db
 
 
+// CREATING THE COUNTERS COLLECTION SO OUR DB ENTRIES CAN BE AUTOINCREMENTED
+> db.createCollection("counters")
+
+> db.counters.insert({_id:"subscriber",sequence_value:6})
+> db.counters.insert({_id:"rating",sequence_value:8})
+// these values are 6 and 8 because our database is initialised with this many 
+
 // CREATING THE SUBSCRIBERS COLLECTION AND ADDING 2 DOCUMENTS INTO IT:
 
 > db.createCollection("subscribers")

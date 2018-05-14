@@ -25,8 +25,6 @@ function insertPoints(dbname, colName, xcount, ycount) {
         db[colName].insert({'xval': xval, 'yval': yval});
         count += 2;
     }
-
-
 }
 
 function findNearest(dbName, colName, xval, yval) {
