@@ -37,26 +37,20 @@ function getNextSequenceValue(sequenceName){
 // also updates the subscribers collection 
 function insertRating (dbname, from_id, to_id, before_rating, comment, after_rating) {
 	var db = conn.getDB(dbname);
-	if (typeof after_rating !=== "undefined") {
-		after_rating = "-"
+	if (typeof after_rating !== "undefined") {
+		after_rating = "-";
 	} 
-	db['ratings'].insert({'_id': getNextSequenceValue("rating")
+	db['ratings'].insert({'_id': getNextSequenceValue("rating"),
 		'from_sub_id': from_id,
         'to_sub_id': to_id,
         'before_meet': before_rating,
         'after_meet': after_rating,
         'comments': comment});
 
-	db['subscribers'].updateOne(
-		{ _id: to_id },
-		$push: {
-			the_ratings: {'$ref' : 'ratings', '$id': from_id}
-		});
+	db['subscribers'].update({ _id: to_id },
+		{$push: { the_ratings: {'$ref' : 'ratings', '$id': from_id}}});
 }
 
-
-
-function updateRating() {}
 
 function remove() {}
 
