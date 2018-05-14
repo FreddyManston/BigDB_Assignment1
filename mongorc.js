@@ -8,20 +8,6 @@
 */
 
 var conn = new Mongo();
-
-/**
-	NOTE
-	From: Joshua
-	To: Greg 
-	
-	I feel like some of our functions are redundant. Like find pretty? You could really just do that from mongo shell..and insert, remove, etc.. 
-	Theres too many arguments to consider, and not neccesarily all of them need to be used... Like someone could be a subscriber, 
-	but not have a bio e.g. ... I don't know, let me know.
-
-	<3
-*/
-
-
 function getNextSequenceValue(sequenceName){
 
    var sequenceDocument = db.counters.findAndModify({
@@ -87,7 +73,7 @@ function find5StarAfterRatings(dbname, id) {
 	that they've been given.
 */
 function getAvgBeforeRating(id) {
-	document.write("In progress.");
+	return db.ratings.aggregate([ {$match:{"to_sub_id": id}}, {$group:{_id: "$to_sub_id", average_before_rating:{$avg:"$before_meet"}}} ])
 }
 
 /** 
@@ -95,28 +81,13 @@ function getAvgBeforeRating(id) {
 	that they've been given.
 */
 function getAvgAfterRating(id) {
-	document.write("In progress.");
+	return db.ratings.aggregate([ {$match:{"to_sub_id": id}}, {$group:{_id: "$to_sub_id", average_after_rating:{$avg:"$after_meet"}}} ])
 }
 
 
 /** 
-	sortByRating sorts subscribers by their average overall rating (can extend to showing male or female subscribers)
-	Note: Average overall rating is calculated by taking avg of before and after or by just taking before if there's no after rating
+	sortByName sorts subscribers by their name
 */
-function sortByRating() {
-//	avg_rating = before_rating
-//
-//	if(there is an after rating) then
-//		avg_rating = (avg_rating + after_rating)/2
-
-	document.write("In progress.");
-}
-
-/** 
-	findMostLikelyMatch takes in a subscribers name, their age, their sex, preferred sex and a keyword from their bio 
-	outputs the subscriber who'd be their most likely match.
-	Note: This is a rudimentary example, meant only for the purpose of this BigDb assignment.
-*/
-function findMostLikelyMatch(name, age, bio_keyword, sex, pref_sex) {
-	document.write("In progress.");
+function sortByName() {
+	return db.subscribers.find().sort({name:1}).pretty()
 }
