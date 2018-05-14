@@ -24,12 +24,13 @@
 > db
 
 
-// CREATING THE COUNTERS COLLECTION SO OUR DB ENTRIES CAN BE AUTOINCREMENTED
+// CREATING THE COUNTERS COLLECTION SO OUR DB ENTRIES CAN BE AUTOINCREMENTED:
+
 > db.createCollection("counters")
 
 > db.counters.insert({_id:"subscriber",sequence_value:6})
 > db.counters.insert({_id:"rating",sequence_value:8})
-// these values are 6 and 8 because our database is initialised with this many 
+// these values are 6 and 8 because our database will be initialised with this many 
 
 // CREATING THE SUBSCRIBERS COLLECTION AND ADDING 2 DOCUMENTS INTO IT:
 
@@ -244,7 +245,7 @@
 
 // FINDING THE AVERAGE BEFORE_MEET RATING OF A SPECIFIC SUBSCRIBER, GIVEN THEIR ID:
 
-> db.ratings.aggregate([ {$match:{"to_sub_id": 1}}, {$group:{_id: "$to_sub_id", total:{$avg:"$before_meet"}}} ])
+> db.ratings.aggregate([ {$match:{"to_sub_id": 1}}, {$group:{_id: "$to_sub_id", avg_before_rating:{$avg:"$before_meet"}}} ])
 
 
 // DROPPING THE SUBSCRIBER AND RATING COLLECTIONS:

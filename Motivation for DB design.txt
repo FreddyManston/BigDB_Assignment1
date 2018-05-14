@@ -1,0 +1,59 @@
+In our database, BigDBAss1, we have 3 collections:
+ 	1. db.subscribers
+ 	2. db.ratings
+ 	3. db.counters
+
+The first 2 collections were a requirement from the client. However, the third one (db.counters) was not necessary; we chose
+  to add this one as a means to keep track of which integers have already been used as an id for both db.subscribers and
+  db.ratings, individually.
+
+Below we discuss the design of each individual collection.
+
+1. db.subscribers:
+  
+  This collection contains an _id field which starts at 1 and is then consecutively incremented by 1 for each added subscriber.
+  In this way we're also able to track how many subscribers have been added to the collection, as well as after how many
+  subscribers an individual subscriber joined. E.g. if a specific person was the 2nd subscriber or 202nd subscriber to join.
+  Note that this counter does not decrement if a subscriber is removed from the database.
+
+  There's one field for name. This contains the full name, including the surname. We chose not to make a separate field
+  for the second names or surnames, because the premise of dating apps/sites is that it's a shallow depiction of who
+  people are; the names of people aren't as important as their appearance is.
+
+  There are fields for sex and preferred sex. We chose not to label them with the term gender as in this day and age, the waters
+  in the gender field are ones of murky appeal; there are far too many genders today, compared to the easier to work with male
+  and female sexes. 
+
+  There's fields for age as well as a bio. The bio is meant for a subscriber to describe him/herself in their own words.
+
+  The last field is that of ratings. This is an embedded list of references to documents in the ratings collection. Each
+  subscriber is linked, in this way, to the rating that another subscriber has given them. This is so that a more detailed profile
+  of each subscriber can pulled up, with data that is relevant to that subscriber in particular.
+
+2. db.ratings:
+
+  This collection has an _id field that is calculated in the same way, but separate from, the _id field in the subscribers
+  collection.
+
+  There are fields for from_sub_id and to_sub_id, which is used to show which subscriber the specific rating is for and who it
+  is from, respectively.
+
+  There are field for before_meet and after_meet to show the variation between the subscribers online and offline personas.
+  These ratings are an integer number between 1 and 5, where 1 is lowest and 5 is the highest.
+
+  The last field is for any comments about or regarding the subscriber being rated.
+
+  All ratings are subject to change. This is due to the fact that people's minds are made to be changed and they might
+  decide to change their rating, based on their state of mind.
+
+3. db.counters:
+
+  This is the last collection. It's sole purpose is to keep track of how many documents have been added to the various
+  collections used in this database.
+
+  Thus, it has an _id field which contains the name of the collection being counted, as well as a sequence field to keep track
+  of how many documents have been added at the current instance of time.
+
+  javascript functions have been created (found in mongorc.js) for the creation and removal of documents in this database.
+  These functions are meant to be solely used to modify the database, as they make the relevant modifications to the counter
+  collection, behind the scenes. 
