@@ -34,7 +34,7 @@ function getNextSequenceValue(sequenceName){
 }
 
 // insertRating function where after rating is optional 
-// also updates the subscribers collection 
+// also updates the subscribers collection with the ratings reference
 function insertRating (dbname, from_id, to_id, before_rating, after_rating, comment) {
 	var db = conn.getDB(dbname);
 	// you only really have to set the after rating later (after you meet the person)
@@ -52,18 +52,11 @@ function insertRating (dbname, from_id, to_id, before_rating, after_rating, comm
 		{$push: { the_ratings: {'$ref' : 'ratings', '$id': from_id}}});
 }
 
-function updateRating(dbname, from_id, to_id, before_rating, after_rating, comment) {
 
+// Updates the rating (you can change before_rating and after_rating) 
+function updateRating(dbname, from_id, to_id, before_rating, after_rating) {
+	db['ratings'].updateOne({$and: [{ from_sub_id: from_id }, { to_sub_id: to_id}] }, {$set: {"before_meet" : before_rating, "after_meet" : after_rating}})
 }
-
-
-function removeUser(dbname, id) {
-
-}
-
-function findPretty() {}
-
-function find5StarAfterRating() {}
 
 /**
 	totalSubscribers shows the total number of subsccribers on the database and prints how many are men and how many are women
@@ -75,11 +68,18 @@ function totalSubscribers() {
 	return str
 }
 
-/** 
-	averageRatings outputs the average given ratings for men and women respectively
-*/
-function averageRatings() {
-	
+// Removes a subscriber, but the ratings they made still exist in the db
+function removeSubscriber(dbname, id) {
+	db.subscribers.remove( { _id: id }, true )
+}
+
+// Checks who rated a specific person 5 stars (this way you can see who really likes you)
+function find5StarAfterRatings(dbname, id) {
+	var str = db.ratings.find({$and: [{to_sub_id : id }, {after_meet: {$gt : 4}}]}).count() + " person(s) rated you 5 stars!";
+	str += "\nHere is one of your possible lovers! \n";
+	var ratings = db.ratings.find({$and: [{to_sub_id : 2 }, {after_meet: {$gt : 4}}]}, {from_sub_id:1, _id:0})
+	str += "\n" + db.subscribers.find({_id: ratings[0].from_sub_id});
+	return str
 }
 
 /** 
